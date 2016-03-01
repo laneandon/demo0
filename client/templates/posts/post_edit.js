@@ -1,5 +1,5 @@
 Template.postEdit.events({
-    'submit form': function(e) {
+    'submit form': function (e) {
         e.preventDefault();
 
         var currentPostId = this._id;
@@ -9,7 +9,14 @@ Template.postEdit.events({
             title: $(e.target).find('[name=title]').val()
         }
 
-        Posts.update(currentPostId, {$set: postProperties}, function(error) {
+        Meteor.call('CheckRepeat', postProperties, function (error, result) {
+            if (result.postExists) {
+                alert('This link has already been posted（该链接已经存在）');
+            }
+        });
+
+
+        Posts.update(currentPostId, {$set: postProperties}, function (error) {
             if (error) {
                 // 向用户显示错误信息
                 alert(error.reason);
@@ -19,7 +26,7 @@ Template.postEdit.events({
         });
     },
 
-    'click .delete': function(e) {
+    'click .delete': function (e) {
         e.preventDefault();
 
         if (confirm("Delete this post?")) {
