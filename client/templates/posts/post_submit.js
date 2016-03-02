@@ -12,14 +12,17 @@ Template.postSubmit.events({
             if (error) {
                 throwError(error.reason);
             }
-
             // 显示结果，跳转页面
             if (result.postExists){
                 throwError('This link has already been posted（该链接已经存在）');
             }
+            else
+            {
+                Router.go('postsList');
+            }
             //Router.go('postPage', {_id: result._id});//
         });//*/
-
-        Router.go('postsList');
+        //可以用于观察Client和Server的两次运行posts.js文件的Meteor的内置方法
+        //Router.go('postsList');
     }
 });
