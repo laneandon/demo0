@@ -19,8 +19,7 @@ Package.onUse(function (api, where) {
 });
 
 Package.onTest(function(api) {
-  api.use('ecmascript');
-  api.use('tinytest');
-  api.use('laneandon:errors');
-  api.addFiles('errors-tests.js');
+  api.use('laneandon:errors', 'client');
+  api.use(['tinytest', 'test-helpers'], 'client');
+  api.addFiles('errors_tests.js', 'client');
 });
