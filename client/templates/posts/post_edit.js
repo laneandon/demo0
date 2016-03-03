@@ -29,7 +29,7 @@ Template.postEdit.events({
 
         Meteor.call('CheckRepeat', postProperties, function (error, result) {
             if (result.postExists) {
-                throwError('This link has already been posted（该链接已经存在）');
+                Errors.throw('This link has already been posted（该链接已经存在）');
             }
         });
 
@@ -37,7 +37,7 @@ Template.postEdit.events({
         Posts.update(currentPostId, {$set: postProperties}, function (error) {
             if (error) {
                 // 向用户显示错误信息
-                throwError(error.reason);
+                Errors.throw(error.reason);
             } else {
                 Router.go('postPage', {_id: currentPostId});
             }
